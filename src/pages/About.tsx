@@ -1,4 +1,6 @@
 import { Icon } from '@iconify/react';
+import Timeline from '../components/Timeline';
+import PhotoGallery from '../components/PhotoGallery';
 
 const About = () => {
   const sdgGoals = [
@@ -42,6 +44,18 @@ const About = () => {
             and sustainable practices in everyday life.
           </p>
         </div>
+      </section>
+
+      {/* Journey Timeline Section */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-semibold mb-8">Our Journey</h2>
+        <Timeline />
+      </section>
+
+      {/* Photo Gallery Section */}
+      <section className="mb-16">
+        <h2 className="text-2xl font-semibold mb-8">Moments That Define Us</h2>
+        <PhotoGallery />
       </section>
 
       {/* Vision & Mission Section */}
