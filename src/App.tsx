@@ -9,6 +9,8 @@ import Impact from './pages/Impact';
 import Training from './pages/Training';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import Checkout from './pages/Checkout';
+import CheckoutSuccess from './pages/CheckoutSuccess';
 import { CartProvider } from './context/CartContext';
 import Cart from './components/Cart';
 import './index.css';
@@ -29,6 +31,8 @@ function App() {
               <Route path="/training" element={<Training />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/success" element={<CheckoutSuccess />} />
             </Routes>
           </main>
           <Cart />
