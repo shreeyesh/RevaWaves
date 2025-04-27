@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { Target, Award, FileText, Building2 } from 'lucide-react';
+import { Target, Award, FileText, Building2, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 interface Collaboration {
   company: string;
@@ -15,6 +16,11 @@ interface FeatureCardProps {
   description: string;
 }
 
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
   <motion.div 
     whileHover={{ y: -5 }}
@@ -26,6 +32,34 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) =
     <p className="text-gray-600">{description}</p>
   </motion.div>
 );
+
+const FAQAccordion: React.FC<{ faq: FAQItem }> = ({ faq }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-green-100">
+      <button
+        className="w-full py-4 flex justify-between items-center text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-lg font-medium text-green-800">{faq.question}</span>
+        {isOpen ? (
+          <ChevronUp className="text-green-600 w-5 h-5" />
+        ) : (
+          <ChevronDown className="text-green-600 w-5 h-5" />
+        )}
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden"
+      >
+        <p className="pb-4 text-gray-600">{faq.answer}</p>
+      </motion.div>
+    </div>
+  );
+};
 
 const Corporate = () => {
   const collaborations: Collaboration[] = [
@@ -40,6 +74,29 @@ const Corporate = () => {
       testimonial: "The sustainable gifting options provided by Reva Waves perfectly aligned with our company values.",
       author: "Michael Chen",
       role: "Sustainability Director"
+    }
+  ];
+
+  const faqs: FAQItem[] = [
+    {
+      question: "What types of corporate gifts do you offer?",
+      answer: "We offer a wide range of sustainable corporate gifts including eco-friendly stationery, plantable products, organic gift hampers, and customized sustainable merchandise. All our products are environmentally conscious and ethically sourced."
+    },
+    {
+      question: "How can we customize gifts for our company?",
+      answer: "We provide various customization options including company branding, custom packaging, and personalized messages. We can also create bespoke gift solutions that align with your company's values and sustainability goals."
+    },
+    {
+      question: "What is the minimum order quantity for corporate gifts?",
+      answer: "Our minimum order quantity starts at 50 pieces for standard items. For custom orders, the minimum quantity may vary depending on the product type and customization requirements."
+    },
+    {
+      question: "How do you measure and report impact?",
+      answer: "We provide detailed impact reports that include metrics such as carbon footprint reduction, plastic waste avoided, and social impact created. These reports can be customized to align with your company's ESG reporting requirements."
+    },
+    {
+      question: "What are your delivery timelines for bulk orders?",
+      answer: "Standard delivery timeline for bulk orders is 2-3 weeks. For custom orders, it may take 3-4 weeks. We also offer express delivery options for urgent requirements."
     }
   ];
 
@@ -117,6 +174,19 @@ const Corporate = () => {
                   <p className="text-sm text-gray-500">{collab.role} - {collab.company}</p>
                 </div>
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-white" aria-labelledby="faq">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 id="faq" className="text-3xl font-bold text-green-800 mb-12 text-center">Frequently Asked Questions</h2>
+          
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <FAQAccordion key={index} faq={faq} />
             ))}
           </div>
         </div>
