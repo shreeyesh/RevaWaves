@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { ShoppingBag } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
+  id: string;
   title: string;
   price: number;
   image: string;
@@ -9,7 +11,13 @@ interface ProductCardProps {
   sdgGoals: string[];
 }
 
-const ProductCard = ({ title, price, image, category, sdgGoals }: ProductCardProps) => {
+const ProductCard = ({ id, title, price, image, category, sdgGoals }: ProductCardProps) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart({ id, title, price, image });
+  };
+
   return (
     <motion.div
       whileHover={{ y: -5 }}
@@ -30,10 +38,15 @@ const ProductCard = ({ title, price, image, category, sdgGoals }: ProductCardPro
             </span>
           ))}
         </div>
-        <button className="mt-4 w-full bg-green-700 text-white py-2 rounded-md flex items-center justify-center space-x-2 hover:bg-green-800 transition-colors">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleAddToCart}
+          className="mt-4 w-full bg-green-700 text-white py-2 rounded-md flex items-center justify-center space-x-2 hover:bg-green-800 transition-colors"
+        >
           <ShoppingBag className="w-4 h-4" />
           <span>Add to Cart</span>
-        </button>
+        </motion.button>
       </div>
     </motion.div>
   );
