@@ -22,7 +22,7 @@ const Hero = () => {
     transition: {
       duration: 2,
       repeat: Infinity,
-      repeatType: "reverse",
+      repeatType: "reverse" as "reverse",
       ease: "easeInOut",
     },
   };

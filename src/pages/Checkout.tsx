@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { items, setItems, setIsCartOpen } = useCart();
+  const { items, setIsCartOpen } = useCart();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -23,7 +23,6 @@ const Checkout = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, you would process payment here
-    setItems([]);
     setIsCartOpen(false);
     navigate('/checkout/success');
   };
